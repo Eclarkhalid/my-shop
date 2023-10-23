@@ -1,4 +1,5 @@
 import { signOut, useSession } from "next-auth/react"
+import Image from "next/image"
 import Link from "next/link"
 
 export default function Header() {
@@ -62,7 +63,7 @@ export default function Header() {
               <div className="flex items-center gap-4">
                 <div className="sm:flex sm:gap-4">
                   <div class="h-10 w-10">
-                    <img class="h-full w-full rounded-full object-cover object-center" src={session.user.image} alt={session.user.email} />
+                    <Image class="h-full w-full rounded-full object-cover object-center" src={session.user.image} alt={session.user.email} />
                   </div>
 
                   <div className="hidden sm:flex">
