@@ -28,7 +28,7 @@ export default function Home() {
                 </h1>
 
                 <p className="mt-1.5 text-md text-gray-500">
-                  Let's create a new product! 🎉
+                  Lets create a new product! 🎉
                 </p>
               </div>
 
