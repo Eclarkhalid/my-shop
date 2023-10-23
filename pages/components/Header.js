@@ -66,7 +66,7 @@ export default function Header() {
                     <Image class="h-full w-full rounded-full object-cover object-center" src={session.user.image} alt={session.user.email} width={34} height={34} />
                   </div>
 
-                  <div className="hidden sm:flex">
+                  <div className=" sm:flex">
                     <Link
                       onClick={() => signOut()}
                       className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
