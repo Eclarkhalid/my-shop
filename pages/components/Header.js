@@ -62,18 +62,18 @@ export default function Header() {
 
               <div className="flex items-center gap-4">
                 <div className="sm:flex sm:gap-4">
-                  <div class="h-10 w-10">
-                    <Image class="h-full w-full rounded-full object-cover object-center" src={session.user.image} alt={session.user.email} />
+                  <div>
+                    <Image class="h-full w-full rounded-full object-cover object-center" src={session.user.image} alt={session.user.email} width={34} height={34} />
                   </div>
 
                   <div className="hidden sm:flex">
-                    <button
+                    <Link
                       onClick={() => signOut()}
                       className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
                       href="/"
                     >
                       Logout
-                    </button>
+                    </Link>
                   </div>
                 </div>
 
