@@ -49,18 +49,18 @@ export default function Product() {
             <td className="whitespace-nowrap px-4 py-2 text-gray-700">Web Developer</td>
             <td className="whitespace-nowrap px-4 py-2 text-gray-700">$120,000</td>
             <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
-              <a
+              <Link
                 href="#"
                 className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
               >
                 View
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
               >
                 Delete
-              </a>
+              </Link>
             </td>
           </tr>
           <tr>
@@ -70,18 +70,18 @@ export default function Product() {
             <td className="whitespace-nowrap px-4 py-2 text-gray-700">Web Developer</td>
             <td className="whitespace-nowrap px-4 py-2 text-gray-700">$120,000</td>
             <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
-              <a
+              <Link
                 href="#"
                 className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
               >
                 View
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
               >
                 Delete
-              </a>
+              </Link>
             </td>
           </tr>
 
