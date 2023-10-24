@@ -73,16 +73,32 @@ export default function Home() {
           </div>
         </header>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-8">
-          <div className="h-32 rounded-lg bg-gray-200"></div>
-          <div className="h-32 rounded-lg bg-gray-200"></div>
-          <div className="h-32 rounded-lg bg-gray-200"></div>
-          <div className="h-32 rounded-lg bg-gray-200"></div>
+          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
+            <p className="font-bold text-lg">1</p>
+          </div>
+          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
+            <p className="font-bold text-lg">2</p>
+          </div>
+          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
+            <p className="font-bold text-lg">3</p>
+          </div>
+          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
+            <p className="font-bold text-lg">4</p>
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-8 my-4">
-          <div className="h-32 rounded-lg bg-gray-200"></div>
-          <div className="h-32 rounded-lg bg-gray-200"></div>
-          <div className="h-32 rounded-lg bg-gray-200"></div>
-          <div className="h-32 rounded-lg bg-gray-200"></div>
+          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
+            <p className="font-bold text-lg">5</p>
+          </div>
+          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
+            <p className="font-bold text-lg">6</p>
+          </div>
+          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
+            <p className="font-bold text-lg">7</p>
+          </div>
+          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
+            <p className="font-bold text-lg">8</p>
+          </div>
         </div>
       </main>
     </>
