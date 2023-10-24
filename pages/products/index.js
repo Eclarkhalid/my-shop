@@ -1,6 +1,14 @@
+import axios from "axios";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Product() {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    axios.get('/api/products').then(response => {
+      setProducts(response.data)
+    })
+  }, []);
   return <>
     <header>
       <div className="mx-auto  px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -47,51 +55,32 @@ export default function Product() {
           </tr>
         </thead>
 
-        <tbody className="divide-y divide-gray-200">
-          <tr>
-            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-              John Doe
-            </td>
-            <td className="whitespace-nowrap px-4 py-2 text-gray-700">Web Developer</td>
-            <td className="whitespace-nowrap px-4 py-2 text-gray-700">$120,000</td>
-            <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
-              <Link
-                href="#"
-                className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
-              >
-                View
-              </Link>
-              <Link
-                href="#"
-                className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
-              >
-                Delete
-              </Link>
-            </td>
-          </tr>
-          <tr>
-            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-              John Doe
-            </td>
-            <td className="whitespace-nowrap px-4 py-2 text-gray-700">Web Developer</td>
-            <td className="whitespace-nowrap px-4 py-2 text-gray-700">$120,000</td>
-            <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
-              <Link
-                href="#"
-                className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
-              >
-                View
-              </Link>
-              <Link
-                href="#"
-                className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
-              >
-                Delete
-              </Link>
-            </td>
-          </tr>
+        {products.map(product => (
+          <tbody className="divide-y divide-gray-200" key={product._id}>
+            <tr>
+              <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                {product.title}
+              </td>
+              <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.description}</td>
+              <td className="whitespace-nowrap px-4 py-2 text-gray-700">Ksh. {product.price}</td>
+              <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
+                <Link
+                  href="#"
+                  className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
+                >
+                  View
+                </Link>
+                <Link
+                  href="#"
+                  className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
+                >
+                  Delete
+                </Link>
+              </td>
+            </tr>
 
-        </tbody>
+          </tbody>
+        ))}
       </table>
     </div>
   </>
