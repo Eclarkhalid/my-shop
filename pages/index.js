@@ -2,6 +2,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { Poppins } from 'next/font/google'
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const inter = Poppins({
   subsets: ['latin'],
@@ -11,6 +12,11 @@ const inter = Poppins({
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession()
+  const router = useRouter();
+  const handleLogout = async () => {
+    await signOut();
+    router.replace('/');
+  };
 
   if (session) {
     return <>
@@ -27,14 +33,14 @@ export default function Home() {
                   Welcome Back, <span className="text-green-700 font-bold">{session.user.name}</span>
                 </h1>
 
-                <p className="mt-1.5 text-md text-gray-500">
-                  Lets create a new product! 🎉
+                <p className="mt-1.5 text-md text-gray-500 max-w-md">
+                  View the statistics about your business. Also manage and add products.
                 </p>
               </div>
 
               <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
                 <Link href={'/products'}
-                  className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 px-5 py-3 text-gray-500 transition hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:ring"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-500 px-5 py-3 text-gray-500 transition hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:ring"
                   type="button"
                 >
                   <span className="text-sm font-medium"> View Products </span>
@@ -54,6 +60,17 @@ export default function Home() {
                     />
                   </svg>
                 </Link>
+                <button onClick={handleLogout}
+                  className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-red-400 px-5 py-3 text-red-500 transition hover:bg-red-50 hover:text-red-700 focus:outline-none focus:ring"
+                  type="button"
+                >
+                  <span className="text-sm font-medium"> Logout </span>
+
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                  </svg>
+
+                </button>
               </div>
             </div>
           </div>
@@ -77,7 +94,7 @@ export default function Home() {
   return <>
 
     <main
-      className={`flex min-h-screen flex-col items-center justify-center  p-4 text-center ${inter.className}`}
+      className={`flex min-h-screen flex-col items-center justify-center p-5 text-center ${inter.className}`}
     >
       <div className="max-w-xl lg:max-w-3xl">
 
@@ -87,7 +104,7 @@ export default function Home() {
           Welcome to my-Shop
         </h1>
 
-        <p className="mt-4 leading-relaxed text-gray-500 max-w-md">
+        <p className="mt-4 leading-relaxed text-gray-500 max-w-sm">
           This website is only accessible to admins only. Add new products and manage database.
         </p>
         <div className="col-span-6 sm:flex sm:items-center sm:gap-4 my-4 flex items-center justify-center">
