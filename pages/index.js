@@ -4,10 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-const inter = Poppins({
-  subsets: ['latin'],
-  weight: '400'
-});
+
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +18,7 @@ export default function Home() {
   if (session) {
     return <>
       <main
-        className={` min-h-screen p-4  ${inter.className}`}
+        className={` min-h-screen p-4 `}
       >
         {/* Signed in as {session.user.email} <br />
       <button onClick={() => signOut()}>Sign out</button> */}
@@ -94,7 +91,7 @@ export default function Home() {
   return <>
 
     <main
-      className={`flex min-h-screen flex-col items-center justify-center p-5 text-center ${inter.className}`}
+      className={`flex min-h-screen flex-col items-center justify-center p-5 text-center `}
     >
       <div className="max-w-xl lg:max-w-3xl">
 
