@@ -56,7 +56,7 @@ export default function Product() {
         ) : products.length === 0 ? (
           <p className="w-full text-center">No products available.</p>
         ) : (
-          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md">
+          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
             <thead>
               <tr>
                 <th className="whitespace-nowrap px-4 py-2 text-gray-900 text-start font-bold">
