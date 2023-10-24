@@ -2,12 +2,18 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+// Utility function to format price with a comma for thousands
+const formatPrice = (price) => {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 export default function Product() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get('/api/products').then(response => {
+
       setProducts(response.data);
       setLoading(false);
     });
@@ -23,7 +29,7 @@ export default function Product() {
                 All Products
               </h1>
               <p className="mt-1.5 text-md text-gray-500">
-                Lets create a new product! 🎉
+                Let's create a new product! 🎉
               </p>
             </div>
 
@@ -40,21 +46,22 @@ export default function Product() {
               </Link>
             </div>
           </div>
-          <hr class="my-8 h-px border-0 bg-gray-300" />
+          <hr className="my-8 h-px border-0 bg-gray-300" />
         </div>
       </header>
 
-
-
       <div className="overflow-x-auto mx-auto p-4">
         {loading ? (
-          <p className="w-full text-center ">Loading products...</p>
+          <p className="w-full text-center">Loading products...</p>
         ) : products.length === 0 ? (
-          <p className="w-full text-center ">No products available.</p>
+          <p className="w-full text-center">No products available.</p>
         ) : (
           <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md">
             <thead>
               <tr>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-900 text-start font-bold">
+                  #
+                </th>
                 <th className="whitespace-nowrap px-4 py-2 text-gray-900 text-start font-bold">
                   Title
                 </th>
@@ -67,14 +74,17 @@ export default function Product() {
                 <th className="px-4 py-2 whitespace-nowrap text-gray-900 text-start font-bold">Status</th>
               </tr>
             </thead>
-            {products.map(product => (
+            {products.map((product, index) => (
               <tbody className="divide-y divide-gray-200" key={product._id}>
                 <tr>
+                  <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    {index + 1}
+                  </td>
                   <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                     {product.title}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.description}</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">Ksh. {product.price}</td>
+                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">Ksh. {formatPrice(product.price)}</td>
                   <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
                     <Link
                       href="#"
