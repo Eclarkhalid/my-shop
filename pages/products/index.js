@@ -29,7 +29,7 @@ export default function Product() {
                 All Products
               </h1>
               <p className="mt-1.5 text-md text-gray-500">
-                Let's create a new product! 🎉
+                Let&apos;s create a new product! 🎉
               </p>
             </div>
 
