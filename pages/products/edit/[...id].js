@@ -17,17 +17,21 @@ export default function EditProduct() {
     })
   }, [id])
   return <>
+    <div className="max-sm:p-4">
 
-    <div className="sm:flex sm:items-center sm:justify-center">
-      <div className="text-center sm:text-left">
-        <p className="mt-1.5 text-lg text-red-500">
-          Editing {productInfo?.title}
-        </p>
+      <div className="sm:flex sm:items-center sm:justify-center">
+        <div className="text-center sm:text-left">
+          <p className="my-4 text-xl text-red-500">
+            Editing <span className="text-green-600">{productInfo?.title}</span>
+          </p>
+        </div>
+      </div>
+      <hr class="my-8 h-px border-0 bg-gray-300" />
+      <div className="my-20 max-sm:my-12">
+        {productInfo && (
+          <Product {...productInfo} />
+        )}
       </div>
     </div>
-
-    {productInfo && (
-      <Product {...productInfo} />
-    )}
   </>
 }
