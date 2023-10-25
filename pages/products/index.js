@@ -1,6 +1,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import img1 from '@/public/product.png'
 
 // Utility function to format price with a comma for thousands
 const formatPrice = (price) => {
@@ -80,8 +81,15 @@ export default function Product() {
                   <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                     {index + 1}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                    
+                  <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
+                    <div class="h-10 w-10">
+                      <img
+                        class="h-full w-full rounded-full object-cover object-center bg-gray-200"
+                        src={product.images?.[0] || img1}
+                        alt={product.title}
+                      />
+
+                    </div>
                     {product.title}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.description}</td>
