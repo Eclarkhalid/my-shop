@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function Header() {
   const { data: session } = useSession()
   const router = useRouter();
-  const {pathname} = router;
+  const { pathname } = router;
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   const toggleMobileNav = () => {
@@ -55,6 +55,15 @@ export default function Header() {
 
                   <li>
                     <Link
+                      className={pathname === '/categories' ? active : inActive}
+                      href="/categories"
+                    >
+                      Categories
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
                       className={pathname === '/orders' ? active : inActive}
                       href="/"
                     >
@@ -79,92 +88,103 @@ export default function Header() {
                     <Image class="h-full w-full rounded-full object-contain object-center" src={session.user.image} alt={session.user.email} width={34} height={34} />
                   </div>
                 </div>
-                
-                 {/* Mobile navigation button */}
-                 <div className="block md:hidden">
-                    <button
-                      onClick={toggleMobileNav}
-                      className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
-                    >
-                      {isMobileNavOpen ? (
-                        // X icon for close
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      ) : (
-                        // Menu icon for open
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M4 6h16M4 12h16M4 18h16"
-                          />
-                        </svg>
-                      )}
-                    </button>
-                  </div>
 
-                  {/* Mobile navigation links */}
-                  {isMobileNavOpen && (
-                    <div className="md:hidden absolute top-16 right-0 bg-white border border-zinc-200 rounded shadow-lg p-6 text-lg">
-                      <ul className="flex flex-col items-start gap-4">
-                        <li>
-                          <Link
-                            onClick={toggleMobileNav}
-                            className={pathname === '/' ? active : inActive}
-                            href="/"
-                          >
-                            Dashboard
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            onClick={toggleMobileNav}
-                            className={pathname === '/products' ? active : inActive}
-                            href="/products"
-                          >
-                            Products
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            onClick={toggleMobileNav}
-                            className={pathname === '/orders' ? active : inActive}
-                            href="/"
-                          >
-                            Orders
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            onClick={toggleMobileNav}
-                            className={pathname === '/settings' ? active : inActive}
-                            href="/"
-                          >
-                            Settings
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                  )}
+                {/* Mobile navigation button */}
+                <div className="block md:hidden">
+                  <button
+                    onClick={toggleMobileNav}
+                    className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
+                  >
+                    {isMobileNavOpen ? (
+                      // X icon for close
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    ) : (
+                      // Menu icon for open
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4 6h16M4 12h16M4 18h16"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+
+                {/* Mobile navigation links */}
+                {isMobileNavOpen && (
+                  <div className="md:hidden absolute top-16 right-0 bg-white border border-zinc-200 rounded shadow-lg p-6 text-lg">
+                    <ul className="flex flex-col items-start gap-4">
+                      <li>
+                        <Link
+                          onClick={toggleMobileNav}
+                          className={pathname === '/' ? active : inActive}
+                          href="/"
+                        >
+                          Dashboard
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          onClick={toggleMobileNav}
+                          className={pathname === '/products' ? active : inActive}
+                          href="/products"
+                        >
+                          Products
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link
+                          onClick={toggleMobileNav}
+                          className={pathname === '/categories' ? active : inActive}
+                          href="/categories"
+                        >
+                          Categories
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link
+                          onClick={toggleMobileNav}
+                          className={pathname === '/orders' ? active : inActive}
+                          href="/"
+                        >
+                          Orders
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          onClick={toggleMobileNav}
+                          className={pathname === '/settings' ? active : inActive}
+                          href="/"
+                        >
+                          Settings
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
           </div>
