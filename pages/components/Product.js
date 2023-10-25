@@ -119,11 +119,11 @@ export default function Product({
           {/* Display uploaded images */}
           {!isUploading && (
             <div className=" grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-2">
-              <ReactSortable list={images} setList={updateImagesOrder} className="w-[200px] h-auto  gap-2 flex  justify-between align-items-center">
+              <ReactSortable list={images} setList={updateImagesOrder} className="w-[350px] h-auto  gap-2 flex  justify-between align-items-center">
                 {!!images?.length &&
                   images.map((link) => (
                     <div key={link} className="flex-1 border rounded bg-gray-200">
-                      <img src={link} alt="image" className="object-cover h-full w-full" />
+                      <img src={link} alt="image" className="object-cover h-32 w-44" />
                     </div>
                   ))}
               </ReactSortable>
