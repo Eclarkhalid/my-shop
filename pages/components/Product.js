@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Spinner from "./Spinner";
+import { ReactSortable } from "react-sortablejs";
 
 export default function Product({
   _id,
@@ -70,6 +71,10 @@ export default function Product({
     return null;
   }
 
+  function updateImagesOrder(images) {
+    setImages(images)
+  }
+
   return (
     <div className="mx-auto max-w-2xl">
       <form onSubmit={createProduct} className="space-y-5">
@@ -113,15 +118,18 @@ export default function Product({
 
           {/* Display uploaded images */}
           {!isUploading && (
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-2">
-              {!!images?.length &&
-                images.map((link) => (
-                  <div key={link} className="h-32 w-full sm:w-32 md:w-24 lg:w-20 xl:w-20 border rounded bg-gray-200">
-                    <img src={link} alt="image" className="object-cover h-full w-full" />
-                  </div>
-                ))}
+            <div className=" grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-2">
+              <ReactSortable list={images} setList={updateImagesOrder} className="w-[200px] h-auto  gap-2 flex  justify-between align-items-center">
+                {!!images?.length &&
+                  images.map((link) => (
+                    <div key={link} className="flex-1 border rounded bg-gray-200">
+                      <img src={link} alt="image" className="object-cover h-full w-full" />
+                    </div>
+                  ))}
+              </ReactSortable>
             </div>
           )}
+
         </div>
 
         {/* Description input */}

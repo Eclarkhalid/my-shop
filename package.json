@@ -12,6 +12,7 @@
     "@auth/mongodb-adapter": "^2.0.2",
     "axios": "^1.5.1",
     "cloudinary": "^1.41.0",
+    "cordova-plugin-file": "^8.0.0",
     "mongodb": "^6.2.0",
     "mongoose": "^7.6.3",
     "multiparty": "^4.2.3",
@@ -19,6 +20,8 @@
     "next-auth": "^4.24.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-sortable": "^2.0.0",
+    "react-sortablejs": "^6.1.4",
     "react-spinners": "^0.13.8"
   },
   "devDependencies": {
