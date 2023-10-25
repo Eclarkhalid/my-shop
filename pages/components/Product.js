@@ -100,7 +100,7 @@ export default function Product({
                 </svg>
                 Upload
               </label>
-              <input id="fileInput" type="file" className="hidden" accept="image/*" capture="camera" multiple onChange={uploadImages} />
+              <input id="fileInput" type="file" className="hidden" accept="image/*" multiple onChange={uploadImages} />
             </div>
           </div>
 
