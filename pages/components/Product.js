@@ -116,7 +116,7 @@ export default function Product({
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-2">
               {!!images?.length &&
                 images.map((link) => (
-                  <div className="h-32 w-full sm:w-32 md:w-24 lg:w-20 xl:w-20 border rounded bg-gray-200">
+                  <div key={link} className="h-32 w-full sm:w-32 md:w-24 lg:w-20 xl:w-20 border rounded bg-gray-200">
                     <img src={link} alt="image" className="object-cover h-full w-full" />
                   </div>
                 ))}

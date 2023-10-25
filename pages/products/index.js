@@ -81,6 +81,7 @@ export default function Product() {
                     {index + 1}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    
                     {product.title}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.description}</td>
