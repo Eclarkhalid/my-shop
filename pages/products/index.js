@@ -83,7 +83,7 @@ export default function Product() {
                   <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                     {product.title}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.description}</td>
+                  <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.description}</td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">Ksh. {formatPrice(product.price)}</td>
                   <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
                     <Link
