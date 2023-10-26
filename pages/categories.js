@@ -83,7 +83,7 @@ export default function Categories() {
           </tr>
         </thead>
         {categories.map((category, index) => (
-        <tbody className="divide-y divide-gray-200" >
+        <tbody key={category._id} className="divide-y divide-gray-200" >
           <tr>
             <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                {index + 1} 
