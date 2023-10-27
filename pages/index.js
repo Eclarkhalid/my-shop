@@ -74,7 +74,34 @@ export default function Home() {
         </header>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-8">
           <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
-            <p className="font-bold text-lg">1</p>
+            <article
+              className="flex max-md:flex-col items-end justify-between rounded-lg gap-4"
+            >
+              <div>
+                <p className="text-sm text-gray-500">Profit</p>
+
+                <p className="text-2xl font-medium text-gray-900">Ksh. 24,000</p>
+              </div>
+
+              <div className="inline-flex gap-2 rounded bg-green-100 p-1 text-green-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  />
+                </svg>
+
+                <span className="text-xs font-medium"> 67.81% </span>
+              </div>
+            </article>
           </div>
           <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
             <p className="font-bold text-lg">2</p>

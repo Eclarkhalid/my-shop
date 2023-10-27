@@ -7,6 +7,7 @@ export default function Categories() {
   const [name, setName] = useState('');
   const [categories, setCategories] = useState([]);
   const [parentCategory, setParentCategory] = useState('');
+  const [editedCategory, setEditedCategory] = useState(null);
 
   useEffect(() => {
     fetchCategories();
@@ -25,6 +26,12 @@ export default function Categories() {
     fetchCategories();
   }
 
+  function editCategory(category) {
+    setEditedCategory(category);
+    setName(category.name);
+    setParentCategory(category.parent?._id)
+  }
+
   return <>
     <header>
       <div className="mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -34,7 +41,18 @@ export default function Categories() {
               All Categories
             </h1>
             <p className="mt-1.5 text-md text-gray-500">
-              Create a new category!
+              <span>
+                {editedCategory ? (
+                  <>
+                    Editing category,{' '}
+                    <span className="text-green-600 font-bold">{editedCategory.name}</span> &nbsp;
+                    <span className="text-blue-500 font-bold">{editedCategory?.parent?.name}</span>
+                  </>
+                ) : (
+                  'Create a new category!'
+                )}
+              </span>
+
             </p>
           </div>
 
@@ -43,11 +61,11 @@ export default function Categories() {
               <div class="relative">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2.5 text-gray-500">+</div>
                 <div class="absolute inset-y-0 right-0 flex items-center text-gray-500">
-                  <select  class="h-full rounded-md border-transparent bg-transparent py-0 pl-3  pr-7 text-gray-500 focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
-                  value={parentCategory}
-                  onChange={ev => setParentCategory(ev.target.value)}
+                  <select class="h-full rounded-md border-transparent bg-transparent py-0 pl-3  pr-7 text-gray-500 focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+                    value={parentCategory}
+                    onChange={ev => setParentCategory(ev.target.value)}
                   >
-                  <option>No parent</option>
+                    <option>No parent</option>
                     {categories.length > 0 && categories.map(category => (
                       <option key={category._id} value={category._id}>{category.name}</option>
                     ))}
@@ -70,7 +88,7 @@ export default function Categories() {
       <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
         <thead>
           <tr>
-          <th className="whitespace-nowrap px-4 py-2 text-gray-900 text-start font-bold">
+            <th className="whitespace-nowrap px-4 py-2 text-gray-900 text-start font-bold">
               #
             </th>
             <th className="whitespace-nowrap px-4 py-2 text-gray-900 text-start font-bold">
@@ -83,30 +101,31 @@ export default function Categories() {
           </tr>
         </thead>
         {categories.map((category, index) => (
-        <tbody key={category._id} className="divide-y divide-gray-200" >
-          <tr>
-            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-               {index + 1} 
-            </td>
-            <td className="whitespace-nowrap px-4 py-2 text-gray-700"> {category.name} </td>
-            <td className="whitespace-nowrap px-4 py-2 text-gray-700"> {category?.parent?.name} </td>  
-            <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
-              <Link
-                href={''}
-                className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
-              >
-                Edit
-              </Link>
-              <Link
-                href={''}
-                className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
-              >
-                Delete
-              </Link>
-            </td>
-          </tr>
-        </tbody>
-         ))}
+          <tbody key={category._id} className="divide-y divide-gray-200" >
+            <tr>
+              <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                {index + 1}
+              </td>
+              <td className="whitespace-nowrap px-4 py-2 text-gray-700"> {category.name} </td>
+              <td className="whitespace-nowrap px-4 py-2 text-gray-700"> {category?.parent?.name} </td>
+              <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
+                <Link
+                  onClick={() => editCategory(category)}
+                  href={'/categories'}
+                  className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
+                >
+                  Edit
+                </Link>
+                <Link
+                  href={''}
+                  className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
+                >
+                  Delete
+                </Link>
+              </td>
+            </tr>
+          </tbody>
+        ))}
       </table>
     </div>
   </>

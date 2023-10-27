@@ -33,9 +33,9 @@ export default function Header() {
               </Link>
             </div>
 
-            <div className="md:flex md:items-center md:gap-12">
+            <div className="md:flex md:items-center md:gap-8">
               <nav aria-label="Global" className="hidden md:block">
-                <ul className="flex items-center gap-6 text-lg">
+                <ul className="flex items-center gap-3 text-lg">
                   <li>
                     <Link
                       className={pathname === '/' ? active : inActive}
