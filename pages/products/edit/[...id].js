@@ -27,7 +27,7 @@ export default function EditProduct() {
         </div>
       </div>
       <hr class="my-8 h-px border-0 bg-gray-300" />
-      <div className="my-20 max-sm:my-12">
+      <div className="my-10 max-sm:my-12">
         {productInfo && (
           <Product {...productInfo} />
         )}

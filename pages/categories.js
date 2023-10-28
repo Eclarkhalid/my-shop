@@ -69,7 +69,7 @@ export default function Categories() {
                 {editedCategory ? (
                   <>
                     Editing category,{' '}
-                    <span className="text-green-600 font-bold">{editedCategory.name}</span> &nbsp;
+                    <span className="text-green-600 font-bold">{editedCategory.name}</span>  &nbsp;
                     <span className="text-blue-500 font-bold">{editedCategory?.parent?.name}</span>
                   </>
                 ) : (

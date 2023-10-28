@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
 
@@ -10,6 +10,7 @@ export default function Product({
   description: existingDescription,
   price: existingPrice,
   images: existingImages,
+  category: selectedCategory,
 }) {
   const [title, setTitle] = useState(existingTitle || '');
   const [description, setDescription] = useState(existingDescription || '');
@@ -19,9 +20,18 @@ export default function Product({
   const [redirect, setRedirect] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const uploadImagesQueue = [];
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState( selectedCategory || '');
+
+  useEffect(() => {
+    axios.get('/api/categories').then(result => {
+      setCategories(result.data)
+    })
+  }, [])
 
   async function createProduct(ev) {
     ev.preventDefault();
+
 
     // Check if there are new images to upload
     if (isUploading) {
@@ -30,7 +40,7 @@ export default function Product({
     }
 
     // Now you can make the API request to save the product
-    const data = { title, description, price, images };
+    const data = { title, description, price, images, category };
     if (_id) {
       await axios.put('/api/products', { ...data, _id });
     } else {
@@ -75,6 +85,8 @@ export default function Product({
     setImages(images)
   }
 
+ 
+
   return (
     <div className="mx-auto max-w-2xl">
       <form onSubmit={createProduct} className="space-y-5">
@@ -91,6 +103,23 @@ export default function Product({
               onChange={ev => setTitle(ev.target.value)}
             />
           </div>
+        </div>
+
+        <div>
+          <label htmlFor="HeadlineAct" className="block text-lg font-medium text-gray-900">
+            Select Category
+          </label>
+
+          <select
+            className="mt-1.5 p-3 w-full rounded-md border border-gray-300 text-gray-700 "
+            value={category}
+            onChange={ev => setCategory(ev.target.value)}
+          >
+            <option value="0">No category selected</option>
+            {categories.length > 0 && categories.map(cat => (
+              <option key={cat._id} value={cat._id}>{cat.name}</option>
+            ))}
+          </select>
         </div>
 
         {/* Images upload */}
