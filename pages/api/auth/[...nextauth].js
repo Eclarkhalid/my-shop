@@ -30,8 +30,7 @@ export default NextAuth(authOptions)
 export async function isAdminRequest(req,res) {
   const session = getServerSession(req,res,authOptions);
   if (!adminEmails.includes(session?.user?.email)) {
-    res.status(401);
-    res.end;
+    res.status(401).end;
     throw 'You are not allowed to access this page'
   }
 }
