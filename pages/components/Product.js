@@ -168,7 +168,7 @@ export default function Product({
                   </div>
                 ))}
 
-              </ReactSortable>
+              </ReactSortable>   
             </div>
           )}
 
