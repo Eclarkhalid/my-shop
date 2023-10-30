@@ -74,7 +74,7 @@ export default function Header() {
                   <li>
                     <Link
                       className={pathname === '/settings' ? active : inActive}
-                      href="/"
+                      href="/settings"
                     >
                       Settings
                     </Link>
@@ -168,7 +168,7 @@ export default function Header() {
                         <Link
                           onClick={toggleMobileNav}
                           className={pathname === '/orders' ? active : inActive}
-                          href="/"
+                          href="/orders"
                         >
                           Orders
                         </Link>
@@ -177,7 +177,7 @@ export default function Header() {
                         <Link
                           onClick={toggleMobileNav}
                           className={pathname === '/settings' ? active : inActive}
-                          href="/"
+                          href="/settings"
                         >
                           Settings
                         </Link>
