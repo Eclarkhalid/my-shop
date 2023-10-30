@@ -8,9 +8,12 @@ const formatPrice = (price) => {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
+const pageSize = 10; // Number of products per page
+
 export default function Product() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     axios.get('/api/products').then(response => {
@@ -19,6 +22,20 @@ export default function Product() {
       setLoading(false);
     });
   }, []);
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(products.length / pageSize);
+
+  // Calculate the start and end index for the current page
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = Math.min(currentPage * pageSize, products.length);
+
+  const productsToDisplay = products.slice(startIndex, endIndex);
+
+  const changePage = (page) => {
+    setCurrentPage(page);
+    setLoading(false)
+  };
 
   return (
     <>
@@ -52,66 +69,70 @@ export default function Product() {
       </header>
 
       <div className="overflow-x-auto mx-auto p-4">
-        {loading ? (
-          <p className="w-full text-center">Loading products...</p>
-        ) : products.length === 0 ? (
+        {products.length === 0 ? (
           <p className="w-full text-center">No products available.</p>
         ) : (
-          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
-            <thead>
-              <tr>
-                <th className="whitespace-nowrap px-4 py-2 text-gray-900 text-start font-bold">
-                  #
-                </th>
-                <th className="whitespace-nowrap px-4 py-2 text-gray-900 text-start font-bold">
-                  Title
-                </th>
-                <th className="whitespace-nowrap px-4 py-2 text-gray-900 text-start font-bold">
-                  Description
-                </th>
-                <th className="whitespace-nowrap px-4 py-2 text-gray-900 text-start font-bold">
-                  Price
-                </th>
-                <th className="px-4 py-2 whitespace-nowrap text-gray-900 text-start font-bold">Status</th>
-              </tr>
-            </thead>
-            {products.map((product, index) => (
-              <tbody className="divide-y divide-gray-200" key={product._id}>
-                <tr>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                    {index + 1}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
-                    <div class="h-10 w-10">
-                      <img
-                        class="h-full w-full rounded-full object-cover object-center bg-gray-200"
-                        src={product.images?.[0] || img1}
-                        alt={product.title}
-                      />
+          <>
+            <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-md border rounded">
+              <thead>
+                {/* Table headers here */}
+              </thead>
+              {productsToDisplay.map((product, index) => (
+                <tbody className="divide-y divide-gray-200" key={product._id}>
+                  <tr>
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                      {index + 1}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 flex items-center  gap-1">
+                      <div class="h-10 w-10">
+                        <img
+                          class="h-full w-full rounded-full object-cover object-center bg-gray-200"
+                          src={product.images?.[0] || img1}
+                          alt={product.title}
+                        />
 
-                    </div>
-                    {product.title}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.description}</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">Ksh. {formatPrice(product.price)}</td>
-                  <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
-                    <Link
-                      href={'/products/edit/' + product._id}
-                      className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
-                    >
-                      Edit
-                    </Link>
-                    <Link
-                      href={'/products/delete/' + product._id}
-                      className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
-                    >
-                      Delete
-                    </Link>
-                  </td>
-                </tr>
-              </tbody>
-            ))}
-          </table>
+                      </div>
+                      {product.title}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-2 text-gray-700 truncate max-w-md">{product.description}</td>
+                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">Ksh. {formatPrice(product.price)}</td>
+                    <td className="whitespace-nowrap px-4 py-2 gap-4 flex">
+                      <Link
+                        href={'/products/edit/' + product._id}
+                        className="inline-block rounded bg-green-500 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
+                      >
+                        Edit
+                      </Link>
+                      <Link
+                        href={'/products/delete/' + product._id}
+                        className="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
+                      >
+                        Delete
+                      </Link>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+
+            {/* Pagination controls */}
+            {totalPages > 1 && (
+              <div className="flex justify-center mt-4">
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => changePage(i + 1)}
+                    className={`mx-2 px-3 py-2 rounded ${i + 1 === currentPage
+                        ? 'bg-blue-300 text-slate-900'
+                        : 'bg-gray-200 hover:bg-gray-300'
+                      }`}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </>
