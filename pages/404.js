@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function ErrorPage() {
   return <>
     <div className="grid h-screen px-4 bg-white place-content-center">
@@ -10,12 +12,12 @@ export default function ErrorPage() {
 
         <p className="mt-4 text-gray-500">We can&apos;t find that page.</p>
 
-        <a
+        <Link
           href="/"
           className="inline-block px-5 py-3 mt-6 text-sm font-medium text-white bg-green-600 rounded hover:bg-green-700 focus:outline-none focus:ring"
         >
           Go Back Home
-        </a>
+        </Link>
       </div>
     </div>
   </>
