@@ -11,11 +11,14 @@ export default function Product({
   price: existingPrice,
   images: existingImages,
   category: selectedCategory,
+  details: existingDetails, // Added details
+
 }) {
   const [title, setTitle] = useState(existingTitle || '');
   const [description, setDescription] = useState(existingDescription || '');
   const [price, setPrice] = useState(existingPrice || '');
   const [images, setImages] = useState(existingImages || []);
+  const [details, setDetails] = useState(existingDetails || []); // Added details
   const router = useRouter();
   const [redirect, setRedirect] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -40,7 +43,7 @@ export default function Product({
     }
 
     // Now you can make the API request to save the product
-    const data = { title, description, price, images, category };
+    const data = { title, description, price, details, images, category };
     if (_id) {
       await axios.put('/api/products', { ...data, _id });
     } else {
@@ -111,20 +114,24 @@ export default function Product({
           </div>
         </div>
 
+        {/* Category select */}
         <div>
-          <label htmlFor="HeadlineAct" className="block text-lg font-medium text-gray-900">
+          <label htmlFor="category" className="block text-lg font-medium text-gray-900">
             Select Category
           </label>
-
           <select
-            className="mt-1.5 p-3 w-full rounded-md border border-gray-300 text-gray-700 "
+            id="category"
+            className="mt-1.5 p-3 w-full rounded-md border border-gray-300 text-gray-700"
             value={category}
-            onChange={ev => setCategory(ev.target.value)}
+            onChange={(ev) => setCategory(ev.target.value)}
           >
             <option value="0">No category selected</option>
-            {categories.length > 0 && categories.map(cat => (
-              <option key={cat._id} value={cat._id}>{cat.name}</option>
-            ))}
+            {categories.length > 0 &&
+              categories.map((cat) => (
+                <option key={cat._id} value={cat._id}>
+                  {cat.name}
+                </option>
+              ))}
           </select>
         </div>
 
@@ -168,7 +175,7 @@ export default function Product({
                   </div>
                 ))}
 
-              </ReactSortable>   
+              </ReactSortable>
             </div>
           )}
 
@@ -186,6 +193,24 @@ export default function Product({
               required
               value={description}
               onChange={ev => setDescription(ev.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* Product Details input */}
+        <div className="grid grid-cols-2 items-center my-4">
+          <label className="col-span-1 block text-lg font-medium text-gray-700 mb-3">
+            Product Details
+          </label>
+          <div className="col-span-2">
+            <textarea
+              type="text"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 border p-3"
+              placeholder="Product details"
+              rows={6}
+              required
+              value={details}
+              onChange={(ev) => setDetails(ev.target.value)}
             />
           </div>
         </div>
