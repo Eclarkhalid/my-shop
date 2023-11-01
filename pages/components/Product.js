@@ -12,13 +12,21 @@ export default function Product({
   images: existingImages,
   category: selectedCategory,
   details: existingDetails, // Added details
+  brand: existingBrand,
+  colors: existingColors,
+  gender: existingGender,
+  sizes: existingSizes
 
 }) {
   const [title, setTitle] = useState(existingTitle || '');
   const [description, setDescription] = useState(existingDescription || '');
   const [price, setPrice] = useState(existingPrice || '');
   const [images, setImages] = useState(existingImages || []);
-  const [details, setDetails] = useState(existingDetails || []); // Added details
+  const [details, setDetails] = useState(existingDetails || ''); // Added details
+  const [brand, setBrand] = useState(existingBrand || '');
+  const [colors, setColors] = useState(existingColors || '');
+  const [gender, setGender] = useState(existingGender || '');
+  const [sizes, setSizes] = useState(existingSizes || '');
   const router = useRouter();
   const [redirect, setRedirect] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -43,7 +51,7 @@ export default function Product({
     }
 
     // Now you can make the API request to save the product
-    const data = { title, description, price, details, images, category };
+    const data = { title, description, price, details, images, category, brand, gender, sizes, colors };
     if (_id) {
       await axios.put('/api/products', { ...data, _id });
     } else {
@@ -211,6 +219,55 @@ export default function Product({
               required
               value={details}
               onChange={(ev) => setDetails(ev.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* more details */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label>Brand</label>
+            <input
+              className="w-full rounded-lg border border-gray-200 p-3 text-sm"
+              placeholder="brand name"
+              type="text"
+              value={brand}
+              onChange={ev => setBrand(ev.target.value)}
+            />
+          </div>
+
+          <div>
+            <label>Gender</label>
+            <input
+              className="w-full rounded-lg border border-gray-200 p-3 text-sm"
+              placeholder="Gender"
+              type="text"
+              value={gender}
+              onChange={ev => setGender(ev.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label>Sizes</label>
+            <input
+              className="w-full rounded-lg border border-gray-200 p-3 text-sm"
+              placeholder="Sizes, small, large"
+              type="text"
+              value={sizes}
+              onChange={ev => setSizes(ev.target.value)}
+            />
+          </div>
+
+          <div>
+            <label>Color Options</label>
+            <input
+              className="w-full rounded-lg border border-gray-200 p-3 text-sm"
+              placeholder="colors"
+              type="text"
+              value={colors}
+              onChange={ev => setColors(ev.target.value)}
             />
           </div>
         </div>

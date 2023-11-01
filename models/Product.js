@@ -5,6 +5,10 @@ const ProductSchema = new Schema({
   description: {type:String, required:true},
   price: {type: Number, required: true},
   details: {type:String},
+  brand: {type:String},
+  colors: {type:String},
+  sizes: {type:String},
+  gender: {type:String},
   images: [{type: String}],
   category: {type:mongoose.Types.ObjectId, ref:'Category'},
 });
