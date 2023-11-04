@@ -68,7 +68,7 @@ export default function Product() {
         </div>
       </header>
 
-      <div className="overflow-x-auto mx-auto p-4">
+      <div className="overflow-x-auto mx-auto px-4">
         {products.length === 0 ? (
           <p className="w-full text-center">No products available.</p>
         ) : (
