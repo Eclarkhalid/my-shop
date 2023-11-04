@@ -1,19 +1,39 @@
 import { useSession, signIn, signOut } from "next-auth/react"
-import { Poppins } from 'next/font/google'
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect } from "react";
+import axios from "axios";
 
+const formatPrice = (price) => {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession()
-  const router = useRouter();
-  const handleLogout = async () => {
-    await signOut();
-    router.replace('/');
-  };
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  // const handleLogout = async () => {
+  //   await signOut();
+  //   router.replace('/');
+  // };
+
+  useEffect(() => {
+    axios.get('/api/products').then(response => {
+
+      setProducts(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    axios.get('/api/categories').then(result => {
+      setCategories(result.data)
+    })
+  }, []);
+
+  const totalImagesCount = products.reduce((total, product) => total + product.images.length, 0);
+  const totalPrice = products.reduce((total, product) => total + product.price, 0);
 
   if (session) {
     return <>
@@ -91,7 +111,7 @@ export default function Home() {
               <div>
                 <p className="text-sm text-gray-500">Profit</p>
 
-                <p className="text-2xl font-medium text-gray-900">Ksh. 24,000</p>
+                <p className="text-2xl font-medium text-gray-900">Ksh {formatPrice(totalPrice)}</p>
               </div>
 
               <div className="inline-flex gap-2 rounded bg-green-100 p-1 text-green-600">
@@ -115,27 +135,62 @@ export default function Home() {
             </article>
           </div>
           <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
-            <p className="font-bold text-lg">2</p>
+            <article
+              className="flex max-md:flex-col items-end justify-between rounded-lg gap-4"
+            >
+              <div>
+                <p className="text-sm text-gray-500">Products</p>
+
+                <p className="text-2xl font-medium text-gray-900">{products.length}</p>
+              </div>
+              <div className="inline-flex gap-2 rounded bg-green-100 p-1 text-green-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                </svg>
+
+
+                <span className="text-xs font-medium"> {products.length} </span>
+              </div>
+            </article>
           </div>
           <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
-            <p className="font-bold text-lg">3</p>
+            <article
+              className="flex max-md:flex-col items-end justify-between rounded-lg gap-4"
+            >
+              <div>
+                <p className="text-sm text-gray-500">Images</p>
+
+                <p className="text-2xl font-medium text-gray-900">{totalImagesCount}</p>
+              </div>
+              <div className="inline-flex gap-2 rounded bg-green-100 p-1 text-green-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+
+
+                <span className="text-xs font-medium"> {totalImagesCount} </span>
+              </div>
+            </article>
           </div>
           <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
-            <p className="font-bold text-lg">4</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-8 my-4">
-          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
-            <p className="font-bold text-lg">5</p>
-          </div>
-          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
-            <p className="font-bold text-lg">6</p>
-          </div>
-          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
-            <p className="font-bold text-lg">7</p>
-          </div>
-          <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center">
-            <p className="font-bold text-lg">8</p>
+            <article
+              className="flex max-md:flex-col items-end justify-between rounded-lg gap-4"
+            >
+              <div>
+                <p className="text-sm text-gray-500">Categories</p>
+
+                <p className="text-2xl font-medium text-gray-900">{categories.length}</p>
+              </div>
+              <div className="inline-flex gap-2 rounded bg-green-100 p-1 text-green-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
+                </svg>
+
+
+                <span className="text-xs font-medium"> {categories.length} </span>
+              </div>
+            </article>
+
           </div>
         </div>
       </main>
