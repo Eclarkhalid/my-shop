@@ -20,6 +20,7 @@
     "next-auth": "^4.24.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
     "react-sortable": "^2.0.0",
     "react-sortablejs": "^6.1.4",
     "react-spinners": "^0.13.8"

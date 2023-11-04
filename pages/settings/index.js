@@ -29,11 +29,8 @@ export default function Settings() {
                     <span className="flex select-none items-center pl-3 text-gray-500 sm:text-md">admin.com/</span>
                     <input
                       type="text"
-                      name="username"
-                      id="username"
-                      autoComplete="username"
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
-                      placeholder={session.user.name}
+                      value={session.user.name}
                     />
                   </div>
                 </div>
@@ -79,11 +76,8 @@ export default function Settings() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="first-name"
-                    id="first-name"
-                    autoComplete="given-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6 pl-6"
-                    placeholder={session.user.name.split(' ')[0]}
+                    value={session.user.name.split(' ')[0]}
                   />
                 </div>
               </div>
@@ -95,11 +89,8 @@ export default function Settings() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="last-name"
-                    id="last-name"
-                    autoComplete="family-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6 pl-6"
-                    placeholder={session.user.name.split(' ')[1]}
+                    value={session.user.name.split(' ')[1]}
                   />
                 </div>
               </div>
@@ -110,12 +101,9 @@ export default function Settings() {
                 </label>
                 <div className="mt-2">
                   <input
-                    id="email"
-                    name="email"
                     type="email"
-                    autoComplete="email"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6 pl-6"
-                    placeholder={session.user.email}
+                    value={session.user.email}
                   />
                 </div>
               </div>

@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
+import toast from "react-hot-toast";
 
 export default function Product({
   _id,
@@ -54,8 +55,10 @@ export default function Product({
     const data = { title, description, price, details, images, category, brand, gender, sizes, colors };
     if (_id) {
       await axios.put('/api/products', { ...data, _id });
+      toast.success('Product updated!!')
     } else {
       await axios.post('/api/products', data);
+      toast.success('Product created!!')
     }
 
     // Redirect after saving
@@ -84,6 +87,9 @@ export default function Product({
       await Promise.all(uploadImagesQueue);
 
       setIsUploading(false);
+      toast.success('Image uploaded')
+    } else {
+      toast.error('An error occurred!')
     }
   }
 
@@ -100,6 +106,7 @@ export default function Product({
     const updatedImages = [...images];
     updatedImages.splice(index, 1);
     setImages(updatedImages);
+    toast.success('image deleted successfully!!')
   }
 
 

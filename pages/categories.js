@@ -2,6 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Categories() {
   const [name, setName] = useState('');
@@ -34,9 +35,11 @@ export default function Categories() {
     if (editedCategory) {
       data._id = editedCategory._id
       await axios.put('/api/categories', data);
-      setEditedCategory(null)
+      setEditedCategory(null);
+      toast.success('Category updated!!')
     } else {
       await axios.post('/api/categories', data);
+      toast.success('Category created successfully')
     }
     setName('')
     setParentCategory('')
@@ -50,10 +53,11 @@ export default function Categories() {
   }
 
   async function deleteCategory(category) {
-    const {_id} = category;
-    await axios.delete('/api/categories?_id=' +_id);
+    const { _id } = category;
+    await axios.delete('/api/categories?_id=' + _id);
     closeModal();
     fetchCategories();
+    toast.success('Category deleted!!')
   }
 
   return <>
@@ -152,7 +156,7 @@ export default function Categories() {
                   </button>
                   {showModal && (
                     <>
-                      <div className="fixed inset-0 z-10 bg-gray-700/50"></div>
+                      <div className="fixed inset-0 z-10 bg-gray-300/50"></div>
                       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-0">
                         <div className="mx-auto w-full overflow-hidden rounded-lg bg-white shadow-xl sm:max-w-sm">
                           <div className="relative p-5">
@@ -167,7 +171,7 @@ export default function Categories() {
                                 <div className="mt-2 text-sm text-gray-500 max-w-sm">Are you sure you want to delete this {category?.name}?</div>
                               </div>
                             </div>
-                            <div  className="mt-5 flex justify-end gap-3">
+                            <div className="mt-5 flex justify-end gap-3">
                               <button onClick={closeModal} className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-100 focus:ring focus:ring-gray-100 disabled:cursor-not-allowed disabled:border-gray-100 disabled:bg-gray-50 disabled:text-gray-400">Cancel</button>
                               <button className="flex-1 rounded-lg border border-red-500 bg-red-500 px-4 py-2 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-red-700 hover:bg-red-700 focus:ring focus:ring-red-200 disabled:cursor-not-allowed disabled:border-red-300 disabled:bg-red-300"
                                 onClick={() => deleteCategory(category)}
